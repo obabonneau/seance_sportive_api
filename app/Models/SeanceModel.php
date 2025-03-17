@@ -1,7 +1,7 @@
 <?php
 
 
-// DEFINITION DE L'ESPACE DE NOM
+// DEFINITION DE L"ESPACE DE NOM
 namespace App\Models;
 
 // IMPORT DE CLASSES
@@ -11,7 +11,7 @@ use PDOException;
 use PDO;
 
 ///////////////////////////////////////
-// CLASSE MODEL DE L'ENTITE Seance //
+// CLASSE MODEL DE L"ENTITE Seance //
 ///////////////////////////////////////
 class SeanceModel extends DbConnect
 {
@@ -23,7 +23,7 @@ class SeanceModel extends DbConnect
         try {
             // PREPARATION DE LA REQUETE SQL
             $this->request = $this->connection->prepare("SELECT * FROM seance WHERE id_seance = :id_seance");
-            $this->request->bindValue(':id_seance', $readSeance->getId_seance(), PDO::PARAM_INT);
+            $this->request->bindValue(":id_seance", $readSeance->getId_seance(), PDO::PARAM_INT);
 
             // EXECUTION DE LA REQUETE SQL
             $this->request->execute();
@@ -35,8 +35,8 @@ class SeanceModel extends DbConnect
             return $seance;
 
         } catch (PDOException $e) {
-            echo $e->getMessage();
-            die;
+            //echo $e->getMessage();
+            //die;
         }
     }
 
@@ -59,8 +59,8 @@ class SeanceModel extends DbConnect
             return $seances;
             
         } catch (PDOException $e) {
-            echo $e->getMessage();
-            die;
+            //echo $e->getMessage();
+            //die;
         }
     }
 
@@ -73,23 +73,23 @@ class SeanceModel extends DbConnect
             // PREPARATION DE LA REQUETE SQL
             $this->request = $this->connection->prepare("INSERT INTO Seance (id_categorie, nom, jour, duree, commentaire)
                 VALUES (:id_categorie, :nom, :jour, :duree, :commentaire)");
-            $this->request->bindValue(':title', $addSeance->getId_categorie(), PDO::PARAM_INT);
-            $this->request->bindValue(':description', $addSeance->getNom(), PDO::PARAM_STR);
-            $this->request->bindValue(':created_at', $addSeance->getJour(), PDO::PARAM_STR);
-            $this->request->bindValue(':created_at', $addSeance->getDuree(), PDO::PARAM_STR);
-            $this->request->bindValue(':created_at', $addSeance->getCommentaire(), PDO::PARAM_STR);
+            $this->request->bindValue(":id_categorie", $addSeance->getId_categorie(), PDO::PARAM_INT);
+            $this->request->bindValue(":nom", $addSeance->getNom(), PDO::PARAM_STR);
+            $this->request->bindValue(":jour", $addSeance->getJour(), PDO::PARAM_STR);
+            $this->request->bindValue(":duree", $addSeance->getDuree(), PDO::PARAM_STR);
+            $this->request->bindValue(":commentaire", $addSeance->getCommentaire(), PDO::PARAM_STR);
 
             // EXECUTION DE LA REQUETE SQL
             return $this->request->execute();
 
         } catch (PDOException $e) {
-            echo $e->getMessage();
-            die;
+            //echo $e->getMessage();
+            //die;
         }
     }
 
     ///////////////////////////////////////////////////
-    // METHODE DE MODIFICATION D'UNE SEANCE EN BDD //
+    // METHODE DE MODIFICATION D"UNE SEANCE EN BDD //
     ///////////////////////////////////////////////////
     public function update(Seance $majSeance)
     {
@@ -102,12 +102,12 @@ class SeanceModel extends DbConnect
                 duree = :duree,
                 commentaire = :commentaire
                 WHERE id_seance = :id_seance");
-            $this->request->bindValue(':id_Seance', $majSeance->getId_seance(), PDO::PARAM_INT);
-            $this->request->bindValue(':id_categorie', $majSeance->getId_categorie(), PDO::PARAM_INT);
-            $this->request->bindValue(':nom', $majSeance->getNom(), PDO::PARAM_STR);
-            $this->request->bindValue(':jour', $majSeance->getJour(), PDO::PARAM_STR);
-            $this->request->bindValue(':duree', $majSeance->getDuree(), PDO::PARAM_STR);
-            $this->request->bindValue(':commentaire', $majSeance->getCommentaire(), PDO::PARAM_STR);
+            $this->request->bindValue(":id_seance", $majSeance->getId_seance(), PDO::PARAM_INT);
+            $this->request->bindValue(":id_categorie", $majSeance->getId_categorie(), PDO::PARAM_INT);
+            $this->request->bindValue(":nom", $majSeance->getNom(), PDO::PARAM_STR);
+            $this->request->bindValue(":jour", $majSeance->getJour(), PDO::PARAM_STR);
+            $this->request->bindValue(":duree", $majSeance->getDuree(), PDO::PARAM_STR);
+            $this->request->bindValue(":commentaire", $majSeance->getCommentaire(), PDO::PARAM_STR);
 
             // EXECUTION DE LA REQUETE SQL
             return $this->request->execute();
@@ -119,16 +119,16 @@ class SeanceModel extends DbConnect
     }
 
     ////////////////////////////////////////////////
-    // METHODE DE SUPPRESSION D'UNE SEANCE EN BDD //
+    // METHODE DE SUPPRESSION D"UNE SEANCE EN BDD //
     ////////////////////////////////////////////////
     public function delete(Seance $delSeance)
     {
         try {
             // PREPARATION DE LA REQUETE SQL
             $this->request = $this->connection->prepare("DELETE FROM seance WHERE id_seance = :id_seance");
-            $this->request->bindValue(':id_seance', $delSeance->getId_seance(), PDO::PARAM_INT);
+            $this->request->bindValue(":id_seance", $delSeance->getId_seance(), PDO::PARAM_INT);
 
-            // EXECUTION DE LA REQUETE SQL ET RETOUR DE L'EXECUTION
+            // EXECUTION DE LA REQUETE SQL ET RETOUR DE L"EXECUTION
             return $this->request->execute();
 
         } catch (PDOException $e) {

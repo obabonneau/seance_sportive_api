@@ -81,7 +81,7 @@ class SeanceController
             }
         } else {   
             http_response_code(405); // 405 Method Not Allowed
-            echo json_encode("ERREUR : Méthode non autorisée !");
+            echo json_encode(["message => Méthode non autorisée !"]);
         }
     }
 
@@ -105,18 +105,18 @@ class SeanceController
             $data = json_decode($rawData, true);
 
             // RECUPERATION DES DONNEES PAR CLES
-            $id_categories = $data["id_categories"] ?? null;
+            $id_categorie = $data["id_categorie"] ?? null;
             $nom = $data["nom"] ?? null;
             $jour = $data["jour"] ?? null;
             $duree = $data["duree"] ?? null;
             $commentaire = $data["commentaire"] ?? null;
 
             // VERIFICATION DES DONNEES
-            if ($nom && $jour && $duree && $commentaire) {
+            if ($id_categorie && $nom && $jour && $duree && $commentaire) {
 
                 // CREATION DE LA SEANCE
                 $addSeance = new Seance(); 
-                $addSeance->setId_categorie($id_categories);                              
+                $addSeance->setId_categorie($id_categorie);                              
                 $addSeance->setNom($nom);
                 $addSeance->setJour($jour);
                 $addSeance->setDuree($duree);
@@ -126,10 +126,10 @@ class SeanceController
 
                 if ($success) {
                     http_response_code(201); // 200 OK
-                    echo json_encode(["message" => "Création ajoutée avec succès !"]);
+                    echo json_encode(["message" => "Séance ajoutée avec succès !"]);
                 } else {
                     http_response_code(503); // 503 Service Unavailable
-                    echo json_encode(["message" => "ERREUR lors de l'ajout de la création !"]);
+                    echo json_encode(["message" => "ERREUR lors de l'ajout de la séance !"]);
                 } 
             } else {
                 http_response_code(400); // 400 Bad Request
@@ -137,7 +137,7 @@ class SeanceController
             }
         } else {
             http_response_code(405); // 405 Method Not Allowed
-            echo json_encode("Méthode non autorisée !");
+            echo json_encode(["message => Méthode non autorisée !"]);
         }
     }
 
@@ -162,18 +162,18 @@ class SeanceController
 
             // RECUPERATION DES DONNEES PAR CLES
             $id_seance = $data["id_seance"] ?? null;
-            $id_categories = $data["id_categories"] ?? null;
+            $id_categorie = $data["id_categorie"] ?? null;
             $nom = $data["nom"] ?? null;
             $jour = $data["jour"] ?? null;
             $duree = $data["duree"] ?? null;
             $commentaire = $data["commentaire"] ?? null;
 
             // VERIFICATION DES DONNEES
-            if ($id_seance && $id_categories && $nom && $jour && $duree && $commentaire)
+            if ($id_seance && $id_categorie && $nom && $jour && $duree && $commentaire)
             {
                 $majSeance = new Seance(); 
                 $majSeance->setId_seance($id_seance);                              
-                $majSeance->setId_categorie($id_categories);
+                $majSeance->setId_categorie($id_categorie);
                 $majSeance->setNom($nom);
                 $majSeance->setJour($jour);
                 $majSeance->setDuree($duree);
@@ -183,10 +183,10 @@ class SeanceController
 
                 if ($success) {   
                     http_response_code(200); // 200 OK
-                    echo json_encode(["message" => "Création mise à jour avec succès !"]);
+                    echo json_encode(["message" => "Séance mise à jour avec succès !"]);
                 } else {
                     http_response_code(503); // 503 Service Unavailable
-                    echo json_encode(["message" => "ERREUR lors de la mise à jour de la création !"]);
+                    echo json_encode(["message" => "ERREUR lors de la mise à jour de la séance !"]);
                 }
             } else {
                 http_response_code(400); // 400 Bad Request
@@ -194,7 +194,7 @@ class SeanceController
             }
         } else {
             http_response_code(405); // 405 Method Not Allowed
-            echo json_encode("Méthode non autorisée !");
+            echo json_encode(["message => Méthode non autorisée !"]);
         } 
     }
 
@@ -227,18 +227,18 @@ class SeanceController
 
                 if ($success) {
                     http_response_code(200); // 200 OK
-                    echo json_encode("Création supprimée avec succès !");
+                    echo json_encode(["message" => "CSéance supprimée avec succès !"]);
                 } else {
                     http_response_code(503); // 503 Service Unavailable
-                    echo json_encode("ERREUR lors de la suppression de la création !");
+                    echo json_encode(["message" => "ERREUR lors de la suppression de la séance !"]);
                 }
             } else {
                 http_response_code(400); // 400 Bad Request
-                echo json_encode("Paramètres non spécifiés ou manquants !");
+                echo json_encode(["message" => "Paramètres manquants !"]);
             }
         } else {
             http_response_code(405); // 405 Method Not Allowed
-            echo json_encode("Méthode non autorisée !");
+            echo json_encode(["message => Méthode non autorisée !"]);
         }
     }
 }
