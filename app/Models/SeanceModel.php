@@ -6,127 +6,134 @@ namespace App\Models;
 
 // IMPORT DE CLASSES
 use App\Core\DbConnect;
-use App\Entities\Creation;
+use App\Entities\Seance;
 use PDOException;
+use PDO;
 
 ///////////////////////////////////////
-// CLASSE MODEL DE L'ENTITE CREATION //
+// CLASSE MODEL DE L'ENTITE Seance //
 ///////////////////////////////////////
-class CreationModel extends DbConnect
+class SeanceModel extends DbConnect
 {
     ///////////////////////////////////////////
-    // METHODE POUR LIRE UNE CREATION EN BDD //
+    // METHODE POUR LIRE UNE SEANCE EN BDD //
     ///////////////////////////////////////////
-    public function read(Creation $readCreation)
+    public function readById(Seance $readSeance)
     {
         try {
             // PREPARATION DE LA REQUETE SQL
-            $this->request = $this->connection->prepare("SELECT * FROM creation WHERE id_creation = :id_creation");
-            $this->request->bindValue(':id_creation', $readCreation->getId_creation());
+            $this->request = $this->connection->prepare("SELECT * FROM seance WHERE id_seance = :id_seance");
+            $this->request->bindValue(':id_seance', $readSeance->getId_seance(), PDO::PARAM_INT);
 
             // EXECUTION DE LA REQUETE SQL
             $this->request->execute();
 
             // FORMATAGE DU RESULTAT DE LA REQUETE
-            $creation = $this->request->fetch();
+            $seance = $this->request->fetch();
 
             // RETOUR DU RESULTAT
-            return $creation;
+            return $seance;
 
         } catch (PDOException $e) {
-            //echo $e->getMessage();
-            //die;
+            echo $e->getMessage();
+            die;
         }
     }
 
     ////////////////////////////////////////////
-    // METHODE POUR LIRE LES CREATIONS EN BDD //
+    // METHODE POUR LIRE LES SeanceS EN BDD //
     ////////////////////////////////////////////
     public function readAll()
     {
         try {
             // PREPARATION DE LA REQUETE SQL
-            $this->request = $this->connection->prepare("SELECT * FROM creation");
+            $this->request = $this->connection->prepare("SELECT * FROM seance");
 
             // EXECUTION DE LA REQUETE SQL
             $this->request->execute();
 
             // FORMATAGE DU RESULTAT DE LA REQUETE EN TABLEAU
-            $creations = $this->request->fetchAll();
+            $seances = $this->request->fetchAll();
 
             // RETOUR DES RESULTATS
-            return $creations;
+            return $seances;
             
         } catch (PDOException $e) {
-            //echo $e->getMessage();
-            //die;
+            echo $e->getMessage();
+            die;
         }
     }
 
-    ////////////////////////////////////////////
-    // METHODE POUR CREER UNE CREATION EN BDD //
-    ////////////////////////////////////////////
-    public function create(Creation $addCreation)
+    //////////////////////////////////////////
+    // METHODE POUR CREER UNE SEANCE EN BDD //
+    //////////////////////////////////////////
+    public function create(Seance $addSeance)
     {
         try {
             // PREPARATION DE LA REQUETE SQL
-            $this->request = $this->connection->prepare("INSERT INTO creation (title, description, created_at)
-                VALUES (:title, :description, :created_at)");
-            $this->request->bindValue(':title', $addCreation->getTitle());
-            $this->request->bindValue(':description', $addCreation->getDescription());
-            $this->request->bindValue(':created_at', $addCreation->getCreated_at());
+            $this->request = $this->connection->prepare("INSERT INTO Seance (id_categorie, nom, jour, duree, commentaire)
+                VALUES (:id_categorie, :nom, :jour, :duree, :commentaire)");
+            $this->request->bindValue(':title', $addSeance->getId_categorie(), PDO::PARAM_INT);
+            $this->request->bindValue(':description', $addSeance->getNom(), PDO::PARAM_STR);
+            $this->request->bindValue(':created_at', $addSeance->getJour(), PDO::PARAM_STR);
+            $this->request->bindValue(':created_at', $addSeance->getDuree(), PDO::PARAM_STR);
+            $this->request->bindValue(':created_at', $addSeance->getCommentaire(), PDO::PARAM_STR);
 
             // EXECUTION DE LA REQUETE SQL
             return $this->request->execute();
 
         } catch (PDOException $e) {
-            //echo $e->getMessage();
-            //die;
+            echo $e->getMessage();
+            die;
         }
     }
 
     ///////////////////////////////////////////////////
-    // METHODE DE MODIFICATION D'UNE CREATION EN BDD //
+    // METHODE DE MODIFICATION D'UNE SEANCE EN BDD //
     ///////////////////////////////////////////////////
-    public function update(Creation $majCreation)
+    public function update(Seance $majSeance)
     {
         try {
             // PREPARATION DE LA REQUETE SQL
-            $this->request = $this->connection->prepare("UPDATE creation SET
-                title = :title,
-                description = :description,
-                created_at = :created_at
-                WHERE id_creation = :id_creation");
-            $this->request->bindValue(':id_creation', $majCreation->getId_creation());
-            $this->request->bindValue(':title', $majCreation->getTitle());
-            $this->request->bindValue(':description', $majCreation->getDescription());
-            $this->request->bindValue(':created_at', $majCreation->getCreated_at());
+            $this->request = $this->connection->prepare("UPDATE seance SET
+                id_categorie = :id_categorie,
+                nom = :nom,
+                jour = :jour,
+                duree = :duree,
+                commentaire = :commentaire
+                WHERE id_seance = :id_seance");
+            $this->request->bindValue(':id_Seance', $majSeance->getId_seance(), PDO::PARAM_INT);
+            $this->request->bindValue(':id_categorie', $majSeance->getId_categorie(), PDO::PARAM_INT);
+            $this->request->bindValue(':nom', $majSeance->getNom(), PDO::PARAM_STR);
+            $this->request->bindValue(':jour', $majSeance->getJour(), PDO::PARAM_STR);
+            $this->request->bindValue(':duree', $majSeance->getDuree(), PDO::PARAM_STR);
+            $this->request->bindValue(':commentaire', $majSeance->getCommentaire(), PDO::PARAM_STR);
 
             // EXECUTION DE LA REQUETE SQL
             return $this->request->execute();
 
         } catch (PDOException $e) {
-            //echo $e->getMessage();
-            //die;
+            echo $e->getMessage();
+            die;
         }
     }
 
-    //////////////////////////////////////////////////
-    // METHODE DE SUPPRESSION D'UNE CREATION EN BDD //
-    //////////////////////////////////////////////////
-    public function delete(Creation $delCreation)
+    ////////////////////////////////////////////////
+    // METHODE DE SUPPRESSION D'UNE SEANCE EN BDD //
+    ////////////////////////////////////////////////
+    public function delete(Seance $delSeance)
     {
         try {
             // PREPARATION DE LA REQUETE SQL
-            $this->request = $this->connection->prepare("DELETE FROM creation WHERE id_creation = :id_creation");
-            $this->request->bindValue(':id_creation', $delCreation->getId_creation());
+            $this->request = $this->connection->prepare("DELETE FROM seance WHERE id_seance = :id_seance");
+            $this->request->bindValue(':id_seance', $delSeance->getId_seance(), PDO::PARAM_INT);
 
             // EXECUTION DE LA REQUETE SQL ET RETOUR DE L'EXECUTION
             return $this->request->execute();
 
         } catch (PDOException $e) {
-            //echo $e->getMessage();
-            //die;
+            echo $e->getMessage();
+            die;
         }
     }
 }

@@ -3,67 +3,81 @@
 // DEFINITION DE L'ESPACE DE NOM
 namespace App\Entities;
 
-////////////////////////////
-// CLASSE ET BDD CREATION //
-////////////////////////////
-class Creation
+//////////////////////////
+// CLASSE ET BDD SEANCE //
+//////////////////////////
+class Seance
 {
     ///////////////
     // ATTRIBUTS //
     ///////////////
-    private $id_creation;
-    private $title;
-    private $description;
-    private $created_at;
+    private $id_seance;
+    private $id_categorie;
+    private $nom;
+    private $jour;
+    private $duree;
+    private $commentaire;
 
     ///////////////////////////////
     // METHODES GETTER ET SETTER //
     ///////////////////////////////
-    public function getId_creation()
+    public function getId_seance()
     {
-        return $this->id_creation;
+        return $this->id_seance;
     }
 
-    public function setId_creation($id_creation)
+    public function setId_seance($id_seance)
     {
-        $this->id_creation = $id_creation;
-
-        return $this;
+        $this->id_seance = $id_seance;
     }
 
-    public function getTitle()
+    public function getId_categorie()
     {
-        return $this->title;
+        return $this->id_categorie;
     }
 
-    public function setTitle($title)
+    public function setId_categorie($id_categorie)
     {
-        $this->title = $title;
-
-        return $this;
+        $this->id_categorie = $id_categorie;
     }
 
-    public function getDescription()
+    public function getNom()
     {
-        return $this->description;
+        return $this->nom;
     }
 
-    public function setDescription($description)
+    public function setNom($nom)
     {
-        $this->description = $description;
-
-        return $this;
+        $this->nom = $nom;
     }
 
-    public function getCreated_at()
+    public function getJour()
     {
-        return $this->created_at;
+        return $this->jour;
     }
 
-    public function setCreated_at($created_at)
+    public function setJour($jour)
     {
-        $this->created_at = $created_at;
+        $this->jour = $jour;
+    }
 
-        return $this;
+    public function getDuree()
+    {
+        return $this->duree;
+    }
+
+    public function setDuree($duree)
+    {
+        $this->duree = $duree;
+    }
+
+    public function getCommentaire()
+    {
+        return $this->commentaire;
+    }
+
+    public function setCommentaire($commentaire)
+    {
+        $this->commentaire = $commentaire;
     }
 }
