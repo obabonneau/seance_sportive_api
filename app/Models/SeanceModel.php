@@ -22,7 +22,10 @@ class SeanceModel extends DbConnect
     {
         try {
             // PREPARATION DE LA REQUETE SQL
-            $this->request = $this->connection->prepare("SELECT * FROM seance WHERE id_seance = :id_seance");
+            $this->request = $this->connection->prepare("SELECT * FROM seance
+            INNER JOIN categorie
+            ON seance.id_categorie = categorie.id_categorie
+            WHERE id_seance = :id_seance");
             $this->request->bindValue(":id_seance", $readSeance->getId_seance(), PDO::PARAM_INT);
 
             // EXECUTION DE LA REQUETE SQL
@@ -47,7 +50,9 @@ class SeanceModel extends DbConnect
     {
         try {
             // PREPARATION DE LA REQUETE SQL
-            $this->request = $this->connection->prepare("SELECT * FROM seance");
+            $this->request = $this->connection->prepare("SELECT * FROM seance
+                INNER JOIN categorie 
+                ON seance.id_categorie = categorie.id_categorie");
 
             // EXECUTION DE LA REQUETE SQL
             $this->request->execute();
