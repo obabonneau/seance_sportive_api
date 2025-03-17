@@ -1,8 +1,11 @@
 <?php
 
-// UTILISATION DE CLASSES
-require_once "../Entities/Creation.php";
-require_once "../Models/CreationModel.php";
+// DEFINITION DE L'ESPACE DE NOM
+namespace App\Controllers;
+
+// IMPORT DE CLASSES
+use App\Entities\Creation;
+use App\Models\CreationModel;
 
 ////////////////////////////////////////////
 // CLASSE CONTROLEUR DE L'ENTITE CREATION //

@@ -1,5 +1,12 @@
 <?php
 
+// DEFINITION DE L'ESPACE DE NOM
+namespace App\Core;
+
+// IMPORT DE CLASSES
+use PDO;
+use PDOException;
+
 //////////////////////////////////////////////
 // CLASSE DE CONNEXION A LA BASE DE DONNEES //
 //////////////////////////////////////////////
@@ -18,7 +25,7 @@ abstract class DbConnect
     const SERVER = 'localhost';
     const USER = 'root';
     const PASSWORD = '';
-    const BASE = 'portfolio';
+    const BASE = 'seance_sportive';
 
     ////////////////////////////////////////////////
     // CONSTRUCTEUR POUR INITIALISER LA CONNEXION //
@@ -38,7 +45,7 @@ abstract class DbConnect
             // ENCODAGE DES CARACTERES SPECIAUX EN UTF8
             $this->connection->setAttribute(PDO::MYSQL_ATTR_INIT_COMMAND, "SET NAMES utf8");
 
-        } catch (Exception $e) {
+        } catch (PDOException $e) {
             //echo $e->getMessage();
         }
     }

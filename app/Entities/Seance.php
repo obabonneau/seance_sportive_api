@@ -1,5 +1,8 @@
 <?php
 
+// DEFINITION DE L'ESPACE DE NOM
+namespace App\Entities;
+
 ////////////////////////////
 // CLASSE ET BDD CREATION //
 ////////////////////////////

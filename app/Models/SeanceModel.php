@@ -1,7 +1,13 @@
 <?php
 
-// UTILISATION DE CLASSES
-require_once "../Core/DbConnect.php";
+
+// DEFINITION DE L'ESPACE DE NOM
+namespace App\Models;
+
+// IMPORT DE CLASSES
+use App\Core\DbConnect;
+use App\Entities\Creation;
+use PDOException;
 
 ///////////////////////////////////////
 // CLASSE MODEL DE L'ENTITE CREATION //
