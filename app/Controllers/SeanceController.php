@@ -15,7 +15,7 @@ class SeanceController
     /////////////////////////////////////
     // METHODE POUR LISTER LES SEANCES //
     /////////////////////////////////////
-    public function list()
+    public function listAll()
     {
         // HEADER JSON
         header("Access-Control-Allow-Origin: *");

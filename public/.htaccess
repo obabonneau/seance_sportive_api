@@ -1,0 +1,10 @@
+RewriteEngine On
+# RewriteCond %{REQUEST_FILENAME} !-f
+# RewriteCond %{REQUEST_FILENAME} !-d
+# RewriteRule ^home$ index.php?controller=home&action=index [QSA,L]
+RewriteRule ^categorieAll$ index.php?controller=Categorie&action=listAll [QSA,L]
+RewriteRule ^listAll$ index.php?controller=Seance&action=listAll [QSA,L]
+RewriteRule ^create$ index.php?controller=Seance&action=create [QSA,L]
+RewriteRule ^update$ index.php?controller=Seance&action=update [QSA,L]
+RewriteRule ^delete$ index.php?controller=Seance&action=update [QSA,L]
+RewriteRule ^show/([0-9]+)$ index.php?controller=Seance&action=show&id_seance=$1 [QSA,L]
