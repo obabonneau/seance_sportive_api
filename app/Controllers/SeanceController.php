@@ -30,8 +30,11 @@ class SeanceController
             // LECTURE DES SEANCES
             $readSeanceModel = new SeanceModel();
             $seances = $readSeanceModel->readAll();
-        
+
             if ($seances) {
+
+                $seances = $this->addPhoto($seances);
+
                 http_response_code(200); // 200 OK
                 echo json_encode($seances);
             } else {
@@ -227,7 +230,7 @@ class SeanceController
 
                 if ($success) {
                     http_response_code(200); // 200 OK
-                    echo json_encode(["message" => "CSéance supprimée avec succès !"]);
+                    echo json_encode(["message" => "Séance supprimée avec succès !"]);
                 } else {
                     http_response_code(503); // 503 Service Unavailable
                     echo json_encode(["message" => "ERREUR lors de la suppression de la séance !"]);
@@ -240,5 +243,31 @@ class SeanceController
             http_response_code(405); // 405 Method Not Allowed
             echo json_encode(["message => Méthode non autorisée !"]);
         }
+    }
+
+    private function addPhoto($seances)
+    {
+        //$urlPath = "http://app.local/7_REACT_NATIVE/Projets/appliApi/public/img/";
+        $urlPath = "https://www.cefii-developpements.fr/olivier1422/seance_sportive/public/img/";
+
+        foreach ($seances as $seance) {
+            $urlPhoto = $urlPath . $seance->photo;
+
+            $handleCurl = curl_init();
+            curl_setopt($handleCurl, CURLOPT_URL, $urlPhoto);
+            curl_setopt($handleCurl, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($handleCurl, CURLOPT_FOLLOWLOCATION, true);
+            $photoData = curl_exec($handleCurl);
+
+            if ($photoData === false) {
+                $seance->photo_base64 = null;
+            } else {
+                $seance->photo_base64 = "data:image/jpeg;base64," . base64_encode($photoData);
+            }
+
+            curl_close($handleCurl);
+        }
+
+        return $seances;
     }
 }

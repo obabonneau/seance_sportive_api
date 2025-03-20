@@ -1,6 +1,5 @@
 <?php
 
-
 // DEFINITION DE L"ESPACE DE NOM
 namespace App\Models;
 
@@ -76,7 +75,7 @@ class SeanceModel extends DbConnect
     {
         try {
             // PREPARATION DE LA REQUETE SQL
-            $this->request = $this->connection->prepare("INSERT INTO Seance (id_categorie, nom, jour, duree, commentaire)
+            $this->request = $this->connection->prepare("INSERT INTO seance (id_categorie, nom, jour, duree, commentaire)
                 VALUES (:id_categorie, :nom, :jour, :duree, :commentaire)");
             $this->request->bindValue(":id_categorie", $addSeance->getId_categorie(), PDO::PARAM_INT);
             $this->request->bindValue(":nom", $addSeance->getNom(), PDO::PARAM_STR);
@@ -118,8 +117,8 @@ class SeanceModel extends DbConnect
             return $this->request->execute();
 
         } catch (PDOException $e) {
-            echo $e->getMessage();
-            die;
+            //echo $e->getMessage();
+            //die;
         }
     }
 
@@ -137,8 +136,8 @@ class SeanceModel extends DbConnect
             return $this->request->execute();
 
         } catch (PDOException $e) {
-            echo $e->getMessage();
-            die;
+            //echo $e->getMessage();
+            //die;
         }
     }
 }
